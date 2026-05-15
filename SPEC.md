@@ -1,12 +1,13 @@
 # SPEC.md - Contrato de Desenvolvimento (SDD)
 
 ## 1. Visão Geral e Resultados Esperados
-Este documento é a ÚNICA fonte de verdade para a orquestração do desenvolvimento. O objetivo é construir um sistema hospitalar seguro e em conformidade com a LGPD.
+Este documento é a ÚNICA fonte de verdade para a orquestração do desenvolvimento. O objetivo é construir o PathoTrack, um sistema satélite seguro, integrado em modo read-only ao AGHU, para rastreabilidade física de amostras patológicas.
 
 ### Objetivos de Alto Nível
-- [ ] Implementar autenticação via LDAP/AD.
-- [ ] Gerenciar cadastro de pacientes (CNS/CPF).
-- [ ] Garantir trilhas de auditoria imutáveis.
+- [ ] Implementar autenticação via LDAP/AD (utilizando o módulo auth do framework appstart).
+- [ ] Gerenciar a árvore de clivagem biológica (Frasco -> Cassete -> Bloco -> Lâmina).
+- [ ] Integrar leitura de pacientes do AGHU via Camada Anticorrupção (ACL).
+- [ ] Garantir trilhas de auditoria para cada transição de fase da peça física.
 
 ## 2. Contexto do Projeto (Documentação Imutável)
 As definições detalhadas estão distribuídas nos seguintes documentos:
@@ -21,24 +22,19 @@ As definições detalhadas estão distribuídas nos seguintes documentos:
 ## 3. Limites de Escopo e Guardrails (Anti-Patterns)
 **A IA DEVE:**
 - Seguir rigorosamente o Modelo de Dados definido em `04-modelo-dados.md`.
-- Implementar testes unitários para cada funcionalidade nova.
-- Utilizar criptografia AES-256 para dados sensíveis.
+- Utilizar a *Arquitetura de Provedores* do `appstart` para qualquer integração de dados.
+- Implementar testes unitários focados na árvore de clivagem.
 
 **A IA NÃO DEVE:**
-- Criar dependências externas não documentadas em `06-arquitetura.md`.
-- Implementar exclusão física de registros (usar Soft Delete).
-- Burlar o sistema de RBAC (Role-Based Access Control).
+- Criar dependências externas de escrita no banco do AGHU (Acesso estritamente *Read-Only*).
+- Implementar exclusão física de registros de amostras (usar Soft Delete/Status "Descartado").
+- Burlar o sistema de RBAC para acesso a laudos de pacientes sensíveis.
 
 ## 4. Task Breakdown (Plano de Implementação)
 ### Fase 1: Infraestrutura e Dados
-- [ ] [TASK-001] Validar esquemas de banco de dados conforme `04-modelo-dados.md`.
-- [ ] [TASK-002] Configurar ambiente de auditoria de logs.
+- [ ] [TASK-001] Modelar entidades no SQLAlchemy (Frasco, Cassete, Bloco, Lamina).
+- [ ] [TASK-002] Configurar provedor Mock de Autenticação para desenvolvimento local.
 
-### Fase 2: Funcionalidades Essenciais
-- [ ] [TASK-003] Implementar Módulo de Autenticação (RF001).
-- [ ] [TASK-004] Implementar Cadastro de Pacientes (RF002).
-
-## 5. Critérios de Verificação Global
-- [ ] 100% de cobertura em rotas de autenticação.
-- [ ] Zero vulnerabilidades críticas no lint de segurança.
-- [ ] Conformidade total com os esquemas JSON/OpenAPI.
+### Fase 2: Integração e Domínio
+- [ ] [TASK-003] Criar Interface do Provider de Integração com o AGHU (ACL).
+- [ ] [TASK-004] Implementar endpoints de geração de códigos internos ZPL para impressão.

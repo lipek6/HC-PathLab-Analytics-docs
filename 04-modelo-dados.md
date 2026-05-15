@@ -1,23 +1,38 @@
 # Modelo de Dados e Dicionário
 
 ## 1. Modelo Entidade-Relacionamento
+A estrutura foca na árvore hierárquica das amostras físicas, mantendo apenas o identificador da solicitação do AGHU para relacionamentos externos.
+
 ```mermaid
 erDiagram
-    PACIENTE ||--o{ PRONTUARIO : possui
-    PACIENTE {
-        string nome
-        string cpf
-        string cns
-        date data_nascimento
+    AGHU_CACHE ||--o{ FRASCO : gera
+    AGHU_CACHE {
+        string numero_solicitacao
+        string nome_paciente
+        string prontuario
+        datetime data_cache
     }
-    PRONTUARIO ||--|{ EVOLUCAO : contem
-    PRONTUARIO {
-        int id
-        datetime data_criacao
+    FRASCO ||--o{ CASSETE : clivado_em
+    FRASCO {
+        uuid id_frasco
+        string codigo_interno
+        datetime data_recepcao
     }
-    EVOLUCAO {
-        string descricao
-        string responsavel_crm
+    CASSETE ||--o{ BLOCO : embutido_em
+    CASSETE {
+        uuid id_cassete
+        string letra_fragmento
+        string status_fase
+    }
+    BLOCO ||--o{ LAMINA : cortado_em
+    BLOCO {
+        uuid id_bloco
+        datetime data_inclusao
+    }
+    LAMINA {
+        uuid id_lamina
+        string coloracao
+        string status_laudo
     }
 ```
 
