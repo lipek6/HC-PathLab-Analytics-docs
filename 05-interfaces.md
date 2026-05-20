@@ -1,7 +1,7 @@
 # Interfaces e Integrações
 
 ## 1. Protótipos
-* Links para Figma ou diretório /assets.
+* *Será inserido aqui o link do figma para o protótipo - MVP*
 
 ## 2. Hardware
 * Impressoras térmicas e leitores de código de barras.

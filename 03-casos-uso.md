@@ -2,6 +2,7 @@
 
 ## 1. Diagrama de Casos de Uso
 *(Inserir imagem ou Mermaid)*
+*(Está em processo de criação)*
 ```mermaid
 flowchart LR
     %% Definição dos Atores

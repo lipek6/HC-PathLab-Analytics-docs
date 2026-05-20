@@ -1,21 +1,29 @@
 # Documento de Visão
 
 ## 1. Problema e Oportunidade
-* **O Problema**: O sistema AGHU possui granularidade limitada no Módulo de Exames, sendo incapaz de gerenciar o ciclo de vida dos subprodutos físicos de uma peça patológica (cassetes e lâminas).
-* **Impacto**: A dependência de planilhas Excel paralelas e Fichas de Trabalho em papel gera alto risco de perda de amostras, erros de transcrição, troca de identificações e incapacidade de rastrear o SLA (Turnaround Time) em tempo real.
-* **Solução Proposta**: O PathoTrack atua como a única fonte da verdade para o mapeamento físico da amostra, gerando etiquetas exclusivas. Ao ler a etiqueta, o sistema provê uma "Visão Unificada", cruzando o histórico físico local com os dados médicos importados em tempo real do AGHU.
+* **O Problema**: O sistema AGHU possui limitações severas na granularidade do Módulo de Exames no que tange ao rastreamento físico. Atualmente, o hospital gerencia o ciclo de vida dos subprodutos de uma peça patológica (cassetes e lâminas) de forma profundamente ineficiente e atrasada, dependendo de processos manuais em 70% a 80% do tempo.
+* **Impacto**: Essa dependência crítica de planilhas Excel paralelas e "Fichas de Trabalho" físicas em papel gera um ambiente de alto risco. As consequências diretas incluem a possibilidade de perda de amostras biológicas, erros humanos de transcrição, troca acidental de identificações e a total incapacidade da gestão em monitorar o SLA (Turnaround Time) e os gargalos operacionais em tempo real.
+* **Solução Proposta**: O **< nome a definir >** surge como a única fonte da verdade para o ecossistema de patologia. O objetivo central não é modificar a cultura organizacional ou alterar a forma como as equipes se organizam e trabalham, mas sim digitalizar, agilizar, mitigar erros e simplificar essa rotina. O sistema gera etiquetas exclusivas com códigos de barras/QR Codes para cada subproduto; ao ler essa etiqueta, o **< nome a definir >** provê uma "Visão Unificada", cruzando instantaneamente o histórico de movimentação física local com os dados clínicos e médicos importados em tempo real do AGHU.
 
 ## 2. Partes Interessadas (Stakeholders)
-* **Usuários Finais**: Técnicos de laboratório, Macroscopistas, Médicos Patologistas, Residentes.
-* **Gestão**: Recepcionistas, Coordenação da UACAP.
+* **Usuários Finais**: 
+  * **Técnicos de Laboratório**: Responsáveis pelo processamento histológico, inclusão em parafina e corte na microtomia.
+  * **Macroscopistas (Patologistas/Residentes)**: Executam a abertura das peças e a clivagem inicial.
+  * **Médicos Patologistas e Residentes**: Realizam a análise microscópica e diagnóstico final.
+* **Gestão e Apoio**: 
+  * **Recepcionistas**: Responsáveis pela triagem e entrada inicial das peças.
+  * **Coordenação da UACAP (Unidade de Anatomia Patológica)**: Necessita de dados confiáveis para auditoria, produtividade e garantia de qualidade.
+  * **Pesquisadores e Docentes**: Médicos e residentes que utilizam o acervo biológico para o avanço científico.
 
 ## 3. Escopo do Produto
-* Motor de registro de clivagem (geração 1:N de cassetes e lâminas).
-* Dashboard operacional de controle de tempo e gargalos.
-* Integração para impressão direta de etiquetas térmicas (Zebra/Argox).
-* **Fora de Escopo**: O sistema não será repositório legal de laudos, que continuarão sendo redigidos e liberados nativamente no AGHU.
+* **Motor de Registro de Clivagem**: **Idealmente** uma divisão digital automatizada e hierárquica, permitindo a geração e o vínculo de múltiplos cassetes e lâminas a partir de uma única peça matriz (relação 1:N).
+* **Painel de Controle Central (Dashboard)**: Centralização de toda a operação em uma interface visual intuitiva, onde os usuários e gestores conseguem visualizar métricas de desempenho do laboratório, identificar em qual etapa a amostra está retida e acompanhar alertas de prazos.
+* **Mecanismo de Busca Avançada para Pesquisa**: Disponibilização de filtros robustos e cruzamento de dados (como tipo de peça, diagnóstico associado, período e marcadores) para que os usuários possam realizar buscas rápidas no acervo histórico, agilizando a seleção de casos para estudos e pesquisas científicas.
+* **Integração de Hardware (IoT Local)**: Comunicação direta com o ecossistema local para impressão térmica automatizada de etiquetas de alta resistência (marcas Zebra/Argox) na boca do laboratório.
+* **Fora de Escopo**: O **< nome a definir >** é um sistema de rastreabilidade física e suporte operacional. Ele não atuará como repositório legal de laudos ou prontuário eletrônico; a redação final, assinatura digital e liberação oficial dos laudos continuarão sendo feitas nativamente no AGHU.
 
 ## 4. Metas e Objetivos de Negócio
-* Zerar a taxa de perda/troca de identificação de amostras.
-* Eliminar 100% o uso da "Ficha de Trabalho" impressa transitando pelo laboratório.
-* Reduzir o tempo gasto em busca ativa de peças e controle de prazos manuais.
+* **Segurança do Paciente**: Reduzir a zero a taxa de perda de amostras e as falhas de identificação (troca de pacientes/peças) por meio da checagem eletrônica em cada etapa (da macroscopia à entrega da lâmina).
+* **Eficiência Ecológica e Operacional**: Eliminar em 100% o trânsito da "Ficha de Trabalho" impressa dentro do laboratório, substituindo-a por telas de progresso integradas.
+* **Otimização de Tempo**: Reduzir drasticamente o tempo gasto pelas equipes em busca ativa de blocos ou lâminas perdidas em arquivos físicos e extinguir o controle de prazos em papel.
+* **Fomento à Ciência**: Reduzir o tempo que médicos e residentes levam para levantar casuísticas de pesquisa, transformando o arquivo do laboratório em um banco de dados facilmente consultável através de filtros inteligentes.

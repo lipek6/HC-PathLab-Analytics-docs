@@ -19,10 +19,10 @@ Para cada requisito, a implementação deve seguir o padrão:
 * **Context (Contexto)**: Servidor LDAP configurado e credenciais de serviço disponíveis.
 * **Action (Ação)**: Criar middleware de autenticação que consulte o AD.
 * **Result (Resultado)**: Token JWT gerado após sucesso; Código 401 em falha.
-* **Evaluation (Avaliação)**: Executar `npm test tests/auth.spec.ts` (deve passar com 100% de sucesso).
+* **Evaluation (Avaliação)**: Executar `pnpm test -- tests/auth.spec.ts` (deve passar com 100% de sucesso). **Nota:** o gerenciador de pacotes pode mudar, será avaliado qual o ideal.
 
 ### [CARE-RF002] Cadastro de Pacientes
 * **Context (Contexto)**: Esquema de banco de dados 'PACIENTE' criado.
-* **Action (Ação)**: Criar endpoint POST `/api/pacientes` com validação de CPF e CNS.
+* **Action (Ação)**: Criar endpoint POST `/api/pacientes` com validação de CPF e CNS, caso já não exista no repositório.
 * **Result (Resultado)**: Registro persistido no banco; Log de auditoria criado.
 * **Evaluation (Avaliação)**: Validar contra JSON Schema definido em `04-modelo-dados.md`.

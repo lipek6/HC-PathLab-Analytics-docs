@@ -2,6 +2,7 @@
 
 ## 1. Modelo Entidade-Relacionamento
 A estrutura foca na árvore hierárquica das amostras físicas, mantendo apenas o identificador da solicitação do AGHU para relacionamentos externos.
+*(Está em processo de desenvolvimento - esperando validação total da solução proposta)*
 
 ```mermaid
 erDiagram
@@ -40,6 +41,7 @@ erDiagram
 * Tabela PACIENTES, PRONTUARIOS, etc.
 
 ### [SCHEMA] Esquema JSON - Paciente
+*Exemplo!*
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
