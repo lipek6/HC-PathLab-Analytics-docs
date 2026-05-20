@@ -1,32 +1,54 @@
 # Modelagem de Casos de Uso
 
-## 1. Diagrama de Casos de Uso
-*(Inserir imagem ou Mermaid)*
+## 1. Diagrama de Casos de Uso (Múltiplas Rotinas)
+
 ```mermaid
 flowchart LR
-    %% Definição dos Atores
-    E((Enfermeiro))
-    M((Médico))
-    
-    subgraph "Sistema Hospitalar"
-        UC1([Realizar Triagem])
-        UC2([Consultar Histórico])
-        UC3([Prescrever Medicamento])
-    end
-    
-    %% Relacionamentos
-    E --- UC1
-    E --- UC2
-    M --- UC2
-    M --- UC3
-```
-## 2. Especificação (Exemplo)
-### UC001 - Triagem
-* **Ator**: Enfermeiro.
-* **Fluxo**: Selecionar paciente -> Inserir Sinais Vitais -> Calcular Manchester.
+    %% Atores
+    Rec((Recepção))
+    Tec((Técnico/Macroscopista))
+    Med((Médico/Residente))
 
-#### [CARE-UC001] Implementação da Triagem
-* **Context**: Paciente identificado e autenticado.
-* **Action**: Implementar lógica de cálculo do Protocolo de Manchester baseada em Sinais Vitais.
-* **Result**: Classificação de risco persistida e enviada para o painel médico.
-* **Evaluation**: Teste unitário deve validar 5 cenários de cores (Vermelho a Azul) com 100% de acurácia.
+    subgraph "PathoTrack (Sistema Satélite)"
+        UC1([Receber Amostra e Fazer Cache AGHU])
+        UC2([Fluxo Padrão: Gerar Cassetes e Blocos])
+        UC3([Fluxo Citologia: Gerar Lâminas Diretas])
+        UC4([Fluxo Congelação: Macroscopia Expressa])
+        UC5([Vincular Lâmina Imunohistoquímica])
+        UC6([Consultar Visão Unificada])
+        UC7([Solicitar Retrabalho via WebSocket])
+    end
+
+    %% Relacionamentos
+    Rec --> UC1
+    Tec --> UC2
+    Tec --> UC3
+    Med --> UC4
+    Tec --> UC4
+    Tec --> UC5
+    Med --> UC6
+    Tec --> UC6
+    Med --> UC7
+```
+
+## 2. Especificações de Casos de Uso Críticos
+[CARE-UC003] Fluxo de Citologia Geral (Meio Líquido)
+
+    * Context: Recepção envia frasco com líquido. Não haverá geração de blocos de parafina.
+
+    * Action: Técnico seleciona "Registro de Lâminas (Citologia Líquido)" e bipa o Frasco.
+
+    * Result: O sistema gera identificadores (ZPL) para Lâminas vinculadas àquele Frasco, suprimindo exigências de Cassete e Bloco.
+
+    * Evaluation: Ao ler a lâmina gerada, a Visão Unificada mostra linhagem: Frasco -> Lâmina.
+
+[CARE-UC004] Biópsia por Congelação (Urgência)
+
+    * Context: Paciente no centro cirúrgico aguarda resposta imediata do patologista.
+
+    * Action: Sistema prioriza o frasco. Médico faz macroscopia, técnico cora a lâmina e laudo é liberado via status "Congelação Finalizada".
+
+    * Result: Após a finalização expressa, o sistema re-insere a peça restante na fila de "Macroscopia Padrão" para processamento histopatológico
+    convencional.
+
+    * Evaluation: A peça deve possuir duplo rastreio de Turnaround Time (TAT Expresso e TAT Padrão).

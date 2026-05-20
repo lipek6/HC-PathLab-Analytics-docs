@@ -1,6 +1,6 @@
-# Documentação do Projeto Hospitalar
+# Documentação do Projeto: PathoTrack - Gestão Digital da Anatomia Patológica (UACAP)
 
-Este diretório contém a Especificação de Requisitos de Software (SRD) e os artefatos de análise de sistemas para o projeto [NOME DO SISTEMA].
+Este diretório contém a Especificação de Requisitos de Software (SRD) e os artefatos de análise de sistemas para o projeto PathoTrack, sistema satélite ao AGHU para o laboratório de Anatomia Patológica do HC-UFPE.
 
 ## 🚀 Spec-Driven Development (SDD)
 Este projeto utiliza o padrão de desenvolvimento orientado a especificações auxiliado por IA. A documentação não é apenas leitura passiva, mas sim um **contrato executável**.
@@ -14,10 +14,10 @@ Este projeto utiliza o padrão de desenvolvimento orientado a especificações a
 
 1. [**Visão**](01-visao.md): Define o problema, os objetivos do negócio e o escopo de alto nível.
 2. [**Requisitos**](02-requisitos.md): Lista detalhada de requisitos funcionais e não funcionais.
-3. [**Casos de Uso**](03-casos-uso.md): Descrição detalhada das interações entre atores e o sistema.
-4. [**Modelo de Dados**](04-modelo-dados.md): Estrutura da informação e regras de integridade.
-5. [**Interfaces**](05-interfaces.md): Especificação de UI/UX e comunicação com sistemas legados (HIS/LIS).
-6. [**Arquitetura**](06-arquitetura.md): Definições técnicas e conformidade com proteção de dados.
+3. [**Casos de Uso**](03-casos-uso.md): Descrição detalhada das interações entre atores e o sistema contemplando os múltiplos fluxos da UACAP.
+4. [**Modelo de Dados**](04-modelo-dados.md): Estrutura da informação polimórfica e regras de integridade.
+5. [**Interfaces**](05-interfaces.md): Especificação de UI/UX e comunicação com hardware (impressoras/leitores).
+6. [**Arquitetura**](06-arquitetura.md): Definições técnicas (Vue 3 + FastAPI), stack e conformidade.
 7. [**Glossário**](07-glossario.md): Termos técnicos e bibliografia.
 
 *Hospital das Clínicas da UFPE - Centro de Informática UFPE*

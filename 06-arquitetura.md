@@ -1,23 +1,22 @@
-# Arquitetura e Segurança
+### `06-arquitetura.md`
+```markdown
+# Arquitetura e Decisões Técnicas
 
-## 1. Stack Técnica
-* Front-end, Back-end e Banco de Dados.
+## 1. Padrões Arquiteturais e Guardrails
+O sistema adota a **Arquitetura Hexagonal (Ports & Adapters)** no backend para garantir o isolamento absoluto das regras de negócio (Anatomia Patológica) em relação a dependências externas (como o sistema legado AGHU e drivers de hardware).
 
-## 2. Conformidade LGPD
-* Anonimização e gestão de consentimento (TCLE).
+**Guardrails de Integração:**
+* **Read-Only no Legado:** O PathoTrack atua com acesso estritamente de leitura ao AGHU via Camada Anticorrupção (ACL).
+* **Master Data:** O AGHU é a fonte da verdade para dados do paciente. O banco local (PostgreSQL) é a fonte da verdade exclusiva para a linhagem física (cassetes/lâminas/blocos).
 
-## 3. Acessos
-* RBAC e MFA.
+## 2. Stack Tecnológica (Framework HC-UFPE)
+O desenvolvimento utiliza o repositório `appstart` disponibilizado pelo HC:
 
-## 4. Guardrails para IA (SDD)
-Para manter a integridade sistêmica, os assistentes de IA devem aderir às seguintes restrições:
+* **Frontend:** SPA em **Vue.js 3** com Vite.
+* **Backend:** **Python com FastAPI** para alta performance e suporte nativo assíncrono.
+* **Banco de Dados:** **PostgreSQL** para persistência relacional do histórico físico e estruturação hierárquica.
 
-### Escopo Positivo (O que fazer)
-- **Documentação de Código**: Comentar funções complexas seguindo o padrão JSDoc/TSDoc.
-- **Tratamento de Erros**: Utilizar blocos try-catch com logs de erro padronizados.
-- **Testes**: Criar um arquivo de teste `.spec.ts` para cada novo controller ou service.
-
-### Escopo Negativo (O que NÃO fazer - Anti-Patterns)
-- **No Hard Deletes**: Proibido o uso de `DELETE` SQL. Utilizar coluna `deleted_at`.
-- **No Secrets in Code**: Proibido salvar chaves de API ou senhas no código; utilizar `.env`.
-- **No Refactoring Unasked**: Não alterar arquivos de infraestrutura ou configuração global sem instrução explícita no `SPEC.md`.
+## 3. Componentes de Comunicação
+* **Anti-Corruption Layer (ACL):** Componente do FastAPI dedicado a consultar o Módulo de Exames do AGHU e implementar cache local (*fallback*) em caso de indisponibilidade de rede, mantendo a operação da UACAP ininterrupta.
+* **Tempo Real (WebSockets):** Conexões bidirecionais suportadas pelo FastAPI para envio de solicitações de retrabalho do médico para as bancadas técnicas.
+* **Tráfego Assíncrono Híbrido:** Requisições transacionais (`GET/POST` bipagem) operam via HTTP síncrono. Comandos de impressão operam de forma assíncrona para não onerar a *thread* principal do usuário.
